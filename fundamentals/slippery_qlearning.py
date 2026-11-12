@@ -61,19 +61,22 @@ for e in range(episodes):
 
 print(np.max(Q[0]))
 
-s, info = env.reset()
-reset = False
+wins = 0
 
+for i in range(1000):
+    s, info = env.reset()
+    reset = False
 
-while reset == False:
-    gameboard = np.zeros((16))
-    gameboard[s] = 1
-    print(gameboard.reshape(4, 4))
-    a = choose_action(Q, s, 0)
-    s_next, r, terminated, truncated, info = env.step(a)
+    while reset == False:
+        a = choose_action(Q, s, 0)
+        s_next, r, terminated, truncated, info = env.step(a)
 
-    print(f"Action: {mask[a]}: Landed: {s_next}")
+        s = s_next
 
-    s = s_next
-    if terminated or truncated:
-        reset = True
+        if r == 1:
+            wins += 1
+
+        if terminated or truncated:
+            reset = True
+
+print((wins)/1000)
