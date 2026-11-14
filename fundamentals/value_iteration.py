@@ -21,7 +21,6 @@ def value_iteration(P, gamma, theta):
         sweep_no += 1
         new_V = []
         
-        print(V)
         for s in range(16):
             Qs = []
             for action in P[s].keys():
